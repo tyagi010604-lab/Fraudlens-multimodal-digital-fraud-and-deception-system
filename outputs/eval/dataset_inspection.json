@@ -1,0 +1,98 @@
+{
+  "datasets": [
+    {
+      "name": "SDFVD (Small-scale Deepfake Forgery Video Dataset)",
+      "archive": "SDFVD_Small-scale_Deepfake_Forgery_Video_Dataset.zip",
+      "size_mb": 182.1,
+      "samples": 106,
+      "classes": {
+        "real": 53,
+        "fake": 53
+      },
+      "structure": "zip -> SDFVD.zip -> SDFVD/videos_real/vN.mp4 and SDFVD/videos_fake/vsN.mp4 (nested archive)",
+      "issues": "0 unreadable videos; 53/53 index pairs have both a real (vN) and fake (vsN) clip with identical resolution/frame count -> fakes are derived from the paired reals, so splits MUST keep pairs together. Resolutions: {'1280x720': 52, '378x720': 16, '1280x674': 22, '404x720': 16}",
+      "verdict": "Suitable for an EXPERIMENTAL video baseline",
+      "used_for": "Module 1 training/evaluation (pair-grouped splits)",
+      "reason": "Balanced and labelled, but only 106 clips; every metric has a very wide confidence interval."
+    },
+    {
+      "name": "DeepfakeTIMIT",
+      "archive": "DeepfakeTIMIT_tar.gz",
+      "size_mb": 226.6,
+      "samples": 640,
+      "classes": {
+        "fake videos (HQ)": 320,
+        "fake videos (LQ)": 320,
+        "real videos": 0,
+        "wav (original speech)": 640
+      },
+      "structure": "plain TAR (despite the .gz name) -> DeepfakeTIMIT/{higher,lower}_quality/<speaker>/<utt>.avi + .wav ; 32 speakers; extras: {'': 67, '.avi': 640, '.wav': 640, '.txt': 1, '.png': 2, '.mov': 3}",
+      "issues": "Contains ONLY face-swapped (fake) videos - no real counterpart (VidTIMIT originals are not included) -> cannot train a real-vs-fake video classifier. WAVs are the unmodified original speech (README), byte-identical in HQ/LQ folders -> genuine human speech only, no synthetic class.",
+      "verdict": "Partly suitable (speaker data) / not suitable for deepfake classifier training",
+      "used_for": "Module 4 speaker-verification calibration (speaker-disjoint split) and pipeline tests; NOT for Module 1/2 training",
+      "reason": "Speaker-labelled clean speech supports an experimental identity-comparison calibration; one-class media cannot train detectors."
+    },
+    {
+      "name": "UyghurDF preview v0.1",
+      "archive": "1790257220952-UyghurDF_preview_v0_1_tar.gz",
+      "size_mb": 7.3,
+      "samples": 47,
+      "classes": {
+        "spoof": 44,
+        "bonafide": 3
+      },
+      "structure": "tar.gz -> bonafide|spoof/<generator>/<split>/*.wav + metadata.csv + protocol.txt; 16 kHz mono 16-bit",
+      "issues": "README: listening sample, 'not for detector training or evaluation'. 18 generators, only 3 bona-fide clips. Uyghur language only.",
+      "verdict": "Demonstration / pipeline test only",
+      "used_for": "Testing audio loading, preprocessing, feature extraction and the audio upload workflow",
+      "reason": "Too small and explicitly not intended for training/evaluation; no accuracy is claimed from it."
+    },
+    {
+      "name": "SMS Spam Collection v.1 (UCI)",
+      "archive": "sms_spam_collection.zip",
+      "size_mb": 0.2,
+      "samples": 5574,
+      "classes": {
+        "ham": 4827,
+        "spam": 747
+      },
+      "structure": "zip -> SMSSpamCollection (tab-separated label<TAB>text) + readme",
+      "issues": "415 exact duplicate texts (removed before splitting to avoid leakage). English, 2011-era UK/Singapore SMS; 'spam' is mostly promotions, not scams.",
+      "verdict": "Suitable (SMS domain only)",
+      "used_for": "Module 5 text classifier (TF-IDF); also vocabulary for unknown-case detection",
+      "reason": "Labelled, adequately sized; domain shift to emails/job ads/Indian UPI scams is not covered."
+    },
+    {
+      "name": "Phishing Websites (UCI, ARFF)",
+      "archive": "phishing_websites.zip",
+      "size_mb": 1.0,
+      "samples": 11055,
+      "classes": {
+        "phishing(-1)/legitimate(1) raw counts": {
+          "-1": 4898,
+          "1": 6157
+        }
+      },
+      "structure": "zip -> Training Dataset.arff (31 attributes incl. Result), .old.arff, feature description docx",
+      "issues": "Pre-computed categorical features (-1/0/1) such as SSLfinal_State, age_of_domain, Page_Rank that require crawling/WHOIS lookups; URLs themselves are not included, so features cannot be computed for a new message/screenshot.",
+      "verdict": "Not suitable for the live app",
+      "used_for": "Not used (documented only)",
+      "reason": "Cannot be applied to arbitrary uploaded evidence without web crawling/external lookups, which are out of scope."
+    },
+    {
+      "name": "1000 QR Images of Malicious and Benign QR codes (2025)",
+      "archive": "Dataset_of_1000_Images_of_Malicious_and_Benign_QR_codes_2025.zip",
+      "size_mb": 0.6,
+      "samples": 1000,
+      "classes": {
+        "benign": 500,
+        "malicious": 500
+      },
+      "structure": "zip -> .rar -> benign_qr_images_500/*.png + malicious_qr_images_500/*.png (nested RAR; needs unrar-cffi/unrar/7-Zip)",
+      "issues": "13 images could not be decoded by OpenCV; labels come from folder names; benign URLs are mostly well-known sites, malicious ones throw-away domains (sampling bias).",
+      "verdict": "Suitable for QR-decoding tests and an EXPERIMENTAL URL-lexical hint model",
+      "used_for": "Module 6 QR decoding test; URL lexical model shown beside URLs (not fused)",
+      "reason": "Decoded payloads are URL strings with benign/malicious labels, but the model may learn dataset artefacts."
+    }
+  ]
+}

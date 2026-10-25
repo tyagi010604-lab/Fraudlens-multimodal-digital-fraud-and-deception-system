@@ -1,0 +1,293 @@
+{
+  "info": {
+    "module": "video_deepfake_detection",
+    "model": "svm_rbf",
+    "trained_at": "2026-10-22T20:30:07",
+    "dataset": "SDFVD small-scale deepfake forgery video dataset",
+    "n_clips": 106,
+    "n_pairs": 53,
+    "n_train": 84,
+    "n_test": 22,
+    "frames_per_clip": 16,
+    "threshold_selected_on": "out-of-fold predictions on training pairs (grouped 5-fold)",
+    "versions": {
+      "python": "3.12.3",
+      "scikit-learn": "1.8.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "xgboost": "3.4.1"
+    },
+    "experimental": true,
+    "experimental_reason": "Only 106 clips (53 real/53 fake) from one small dataset; test set has 22 clips so every metric has a very wide confidence interval.",
+    "limitations": [
+      "Classic image statistics, not a deep network; may latch onto dataset-specific artefacts (compression, resolution, source) rather than manipulation.",
+      "Clip-level prediction only: no localisation of manipulated frames and no lip-sync analysis.",
+      "Fake clips are derived from the paired real clip; pairs were kept together in every split."
+    ]
+  },
+  "selected": "svm_rbf",
+  "candidates_validation_oof": {
+    "majority_baseline": {
+      "threshold": 0.5,
+      "n": 84,
+      "n_positive": 42,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "accuracy": 0.5,
+      "accuracy_95ci_wilson": [
+        0.395,
+        0.605
+      ],
+      "roc_auc": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          42
+        ],
+        [
+          0,
+          42
+        ]
+      ],
+      "labels": [
+        "real",
+        "fake"
+      ],
+      "false_positives": 42,
+      "false_negatives": 0
+    },
+    "logreg": {
+      "threshold": 0.29,
+      "n": 84,
+      "n_positive": 42,
+      "precision": 0.6727,
+      "recall": 0.881,
+      "f1": 0.7629,
+      "accuracy": 0.7262,
+      "accuracy_95ci_wilson": [
+        0.623,
+        0.81
+      ],
+      "roc_auc": 0.8039,
+      "confusion_matrix": [
+        [
+          24,
+          18
+        ],
+        [
+          5,
+          37
+        ]
+      ],
+      "labels": [
+        "real",
+        "fake"
+      ],
+      "false_positives": 18,
+      "false_negatives": 5
+    },
+    "svm_rbf": {
+      "threshold": 0.44,
+      "n": 84,
+      "n_positive": 42,
+      "precision": 0.7447,
+      "recall": 0.8333,
+      "f1": 0.7865,
+      "accuracy": 0.7738,
+      "accuracy_95ci_wilson": [
+        0.674,
+        0.85
+      ],
+      "roc_auc": 0.8509,
+      "confusion_matrix": [
+        [
+          30,
+          12
+        ],
+        [
+          7,
+          35
+        ]
+      ],
+      "labels": [
+        "real",
+        "fake"
+      ],
+      "false_positives": 12,
+      "false_negatives": 7
+    },
+    "random_forest": {
+      "threshold": 0.46,
+      "n": 84,
+      "n_positive": 42,
+      "precision": 0.7727,
+      "recall": 0.8095,
+      "f1": 0.7907,
+      "accuracy": 0.7857,
+      "accuracy_95ci_wilson": [
+        0.687,
+        0.86
+      ],
+      "roc_auc": 0.826,
+      "confusion_matrix": [
+        [
+          32,
+          10
+        ],
+        [
+          8,
+          34
+        ]
+      ],
+      "labels": [
+        "real",
+        "fake"
+      ],
+      "false_positives": 10,
+      "false_negatives": 8
+    },
+    "xgboost": {
+      "threshold": 0.7,
+      "n": 84,
+      "n_positive": 42,
+      "precision": 0.8333,
+      "recall": 0.7143,
+      "f1": 0.7692,
+      "accuracy": 0.7857,
+      "accuracy_95ci_wilson": [
+        0.687,
+        0.86
+      ],
+      "roc_auc": 0.818,
+      "confusion_matrix": [
+        [
+          36,
+          6
+        ],
+        [
+          12,
+          30
+        ]
+      ],
+      "labels": [
+        "real",
+        "fake"
+      ],
+      "false_positives": 6,
+      "false_negatives": 12
+    }
+  },
+  "test": {
+    "threshold": 0.44,
+    "n": 22,
+    "n_positive": 11,
+    "precision": 0.7273,
+    "recall": 0.7273,
+    "f1": 0.7273,
+    "accuracy": 0.7273,
+    "accuracy_95ci_wilson": [
+      0.518,
+      0.868
+    ],
+    "roc_auc": 0.7851,
+    "confusion_matrix": [
+      [
+        8,
+        3
+      ],
+      [
+        3,
+        8
+      ]
+    ],
+    "labels": [
+      "real",
+      "fake"
+    ],
+    "false_positives": 3,
+    "false_negatives": 3
+  },
+  "test_majority_baseline": {
+    "threshold": 0.5,
+    "n": 22,
+    "n_positive": 11,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6667,
+    "accuracy": 0.5,
+    "accuracy_95ci_wilson": [
+      0.307,
+      0.693
+    ],
+    "roc_auc": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        11
+      ],
+      [
+        0,
+        11
+      ]
+    ],
+    "labels": [
+      "real",
+      "fake"
+    ],
+    "false_positives": 11,
+    "false_negatives": 0
+  },
+  "grouped_cv_all_clips": {
+    "threshold": 0.44,
+    "n": 106,
+    "n_positive": 53,
+    "precision": 0.6575,
+    "recall": 0.9057,
+    "f1": 0.7619,
+    "accuracy": 0.717,
+    "accuracy_95ci_wilson": [
+      0.625,
+      0.794
+    ],
+    "roc_auc": 0.8152,
+    "confusion_matrix": [
+      [
+        28,
+        25
+      ],
+      [
+        5,
+        48
+      ]
+    ],
+    "labels": [
+      "real",
+      "fake"
+    ],
+    "false_positives": 25,
+    "false_negatives": 5
+  },
+  "unknown_calibration": {
+    "ood_percentile": 95,
+    "ood_threshold": 8.344,
+    "uncertain_low": 0.36,
+    "uncertain_high": 0.52
+  },
+  "skipped_unreadable": [],
+  "split": {
+    "test_pairs": [
+      4,
+      6,
+      13,
+      14,
+      18,
+      20,
+      33,
+      42,
+      44,
+      48,
+      51
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "untrained",
+  "reason": "Experimental - suitable labelled training data required.",
+  "details": {
+    "UyghurDF preview": {
+      "bonafide": 3,
+      "spoof": 44,
+      "verdict": "Not used for training/evaluation: its README states it is a listening sample, and 3 bona-fide clips cannot support any detector."
+    },
+    "DeepfakeTIMIT audio": {
+      "verdict": "Original, unmanipulated human speech only (README: audio track kept unmodified) - no synthetic class, so unusable for real-vs-synthetic training."
+    },
+    "SDFVD": {
+      "verdict": "Silent/no labelled audio use."
+    }
+  }
+}

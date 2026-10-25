@@ -1,0 +1,72 @@
+{
+  "info": {
+    "module": "voice_identity_verification",
+    "trained_at": "2026-10-23T09:39:01",
+    "dataset": "DeepfakeTIMIT (original VidTIMIT audio)",
+    "n_utterances": 320,
+    "n_speakers": 32,
+    "split_speakers": [
+      16,
+      8,
+      8
+    ],
+    "scorer": "lda_cosine",
+    "versions": {
+      "python": "3.12.3",
+      "scikit-learn": "1.8.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "xgboost": "3.4.1"
+    },
+    "experimental": true,
+    "experimental_reason": "Calibrated on 32 clean studio speakers; real-world recordings (phone codecs, noise, emotion, different sessions) will degrade accuracy substantially.",
+    "limitations": [
+      "Handcrafted MFCC statistics, not x-vector/ECAPA embeddings.",
+      "Does NOT detect synthetic speech: cloned voices can be 'Match' and genuine voices 'Mismatch'.",
+      "HQ and LQ copies of the audio are byte-identical; only one copy was used."
+    ]
+  },
+  "validation_scorers": {
+    "raw_cosine": {
+      "val_eer": 0.2611,
+      "val_threshold": 0.9821
+    },
+    "standardised_cosine": {
+      "val_eer": 0.1681,
+      "val_threshold": 0.2219
+    },
+    "lda_cosine": {
+      "val_eer": 0.1667,
+      "val_threshold": 0.2751
+    }
+  },
+  "test": {
+    "scorer": "lda_cosine",
+    "threshold_from_validation": 0.2751,
+    "test_pairs": 720,
+    "same_speaker_pairs": 360,
+    "test_auc": 0.9082,
+    "test_eer": 0.1833,
+    "false_accept_rate": 0.2306,
+    "false_reject_rate": 0.125,
+    "confusion_matrix": [
+      [
+        277,
+        83
+      ],
+      [
+        45,
+        315
+      ]
+    ],
+    "labels": [
+      "different speaker",
+      "same speaker"
+    ],
+    "false_positives": 83,
+    "false_negatives": 45,
+    "precision": 0.7915,
+    "recall": 0.875,
+    "f1": 0.8312
+  }
+}

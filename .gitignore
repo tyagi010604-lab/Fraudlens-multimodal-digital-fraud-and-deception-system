@@ -1,0 +1,17 @@
+# datasets & private evidence
+data/*
+!data/.gitkeep
+*.zip
+*.tar
+*.tar.gz
+*.rar
+uploads/
+# generated
+outputs/reports/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+# face ONNX weights (downloaded on demand)
+models/face/

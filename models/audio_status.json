@@ -1,0 +1,19 @@
+{
+  "status": "untrained",
+  "checked_at": "2026-10-23T09:44:20",
+  "message": "Experimental - suitable labelled training data required.",
+  "datasets_checked": {
+    "UyghurDF preview": {
+      "bonafide": 3,
+      "spoof": 44,
+      "verdict": "Not used for training/evaluation: its README states it is a listening sample, and 3 bona-fide clips cannot support any detector."
+    },
+    "DeepfakeTIMIT audio": {
+      "verdict": "Original, unmanipulated human speech only (README: audio track kept unmodified) - no synthetic class, so unusable for real-vs-synthetic training."
+    },
+    "SDFVD": {
+      "verdict": "Silent/no labelled audio use."
+    }
+  },
+  "how_to_enable": "Provide a labelled real-vs-synthetic speech set (e.g. ASVspoof 2019 LA, WaveFake, In-the-Wild) and run: python scripts/train_models.py --only audio --audio-real DIR --audio-fake DIR"
+}
